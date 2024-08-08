@@ -1,0 +1,22 @@
+query Characters {
+    characters {
+        results {
+            name
+            id
+            image
+            status
+            species
+            episode {
+                name
+            }
+            location {
+                name
+                residents {
+                    name
+                    image
+                    id
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.apollographql.apollo") version "4.0.0"
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+}
+
+apollo {
+    service("service") {
+        packageName.set("com.example.rickandmorty")
+        introspection {
+            endpointUrl.set("https://rickandmortyapi.com/graphql")
+            schemaFile.set(file("src/main/graphql/schema.graphqls"))
+        }
+    }
 }
 
 android {
@@ -63,4 +76,19 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Apollo
+    implementation(libs.apollo.runtime)
+
+    // Dagger/Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    //ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+}
+
+kapt {
+    correctErrorTypes = true
 }
