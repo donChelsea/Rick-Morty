@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
 fun CharactersScreen(viewModel: CharactersViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
 
+
 }
 
 @Preview(showBackground = true)
