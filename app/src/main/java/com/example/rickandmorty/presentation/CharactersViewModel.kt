@@ -21,29 +21,30 @@ class CharactersViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        updateState(isLoading = true)
+        updateState(ScreenData.Loading)
 
         viewModelScope.launch {
-            updateState(
-                characters = getCharactersUseCase(),
-                isLoading = false
-            )
+            updateState(ScreenData.Data(getCharactersUseCase()))
         }
     }
 
     private fun updateState(
-        characters: List<Character> = _state.value.characters,
-        isLoading: Boolean = _state.value.isLoading,
-    ) = _state.update {
-        it.copy(
-            characters = characters,
-            isLoading = isLoading
-        )
-    }
+        screenData: ScreenData
+    ) = _state.update { it.copy(screenData = screenData) }
 }
 
 @Immutable
 data class CharactersState(
-    val characters: List<Character> = emptyList(),
-    val isLoading: Boolean = false
+    val screenData: ScreenData = ScreenData.Initial
 )
+
+@Immutable
+sealed class ScreenData {
+    data object Initial : ScreenData()
+    data object Loading : ScreenData()
+
+    @Immutable
+    data class Data(
+        val characters: List<Character> = emptyList(),
+    ) : ScreenData()
+}

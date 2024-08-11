@@ -85,6 +85,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    // Orbital
+    implementation("com.github.skydoves:orbital:0.4.0")
+
     //ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
